@@ -185,6 +185,17 @@ def voice_channel_for(interaction: discord.Interaction) -> discord.VoiceChannel 
     return member.voice.channel if member and member.voice else None
 
 
+STICK_FIGURE_FRAMES = (
+    "```text\n        O\n       /|\\\n       / \\\n================\n                |\n                |\n________________|____________\n```",
+    "```text\n             O\n            /|\\\n            / \\\n================\n                |\n                |\n________________|____________\n```",
+    "```text\n                O\n               /|\\\n               / \\\n================\n                |\n                |\n________________|____________\n```",
+    "```text\n                 O\n                /|\\\n                / \\\n================\n                |\n                |\n________________|____________\n```",
+    "```text\n                 O\n                /|\\\n                / \\\n================\n                |\n                |\n________________|____________\n```",
+    "```text\n                 O\n                /|\\\n                / \\\n================\n                |\n                |\n________________|____________\n```",
+    "```text\n                 O\n                \\|/\n                / \\\n================\n                |\n                |\n________________|____________\n```",
+)
+
+
 @bot.tree.command(name="play", description="Search for a song and add it to the queue")
 @app_commands.describe(query="A song name, Spotify track URL, or YouTube URL")
 async def play(interaction: discord.Interaction, query: str) -> None:
@@ -212,6 +223,14 @@ async def play(interaction: discord.Interaction, query: str) -> None:
     except Exception as error:
         LOGGER.exception("Play command failed")
         await interaction.followup.send(f"I couldn't queue that track: {error}")
+
+
+@bot.tree.command(name="stickfigure", description="Show a small animated stick figure")
+async def stickfigure(interaction: discord.Interaction) -> None:
+    await interaction.response.send_message(STICK_FIGURE_FRAMES[0])
+    for frame in STICK_FIGURE_FRAMES[1:]:
+        await asyncio.sleep(0.45)
+        await interaction.edit_original_response(content=frame)
 
 
 @bot.tree.command(name="queue", description="Show the current playback queue")

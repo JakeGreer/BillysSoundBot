@@ -1,5 +1,5 @@
 [project]
-name = "billy-sound-bot"
+name = "billybot"
 version = "0.1.0"
 description = "A Discord music bot with Spotify search and queued playback."
 requires-python = ">=3.11"
@@ -10,7 +10,7 @@ dependencies = [
 ]
 
 [project.scripts]
-billy-sound-bot = "billy_sound_bot.bot:run"
+billybot = "billy_sound_bot.bot:run"
 
 [build-system]
 requires = ["hatchling"]

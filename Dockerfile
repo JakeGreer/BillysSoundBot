@@ -13,4 +13,4 @@ COPY src ./src
 
 RUN pip install --no-cache-dir .
 
-CMD ["billy-sound-bot"]
+CMD ["billybot"]
