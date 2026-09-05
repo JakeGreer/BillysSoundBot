@@ -225,7 +225,7 @@ async def play(interaction: discord.Interaction, query: str) -> None:
         await interaction.followup.send(f"I couldn't queue that track: {error}")
 
 
-@bot.tree.command(name="stickfigure", description="Show a small animated stick figure")
+@bot.tree.command(name="rsmbridge", description="Show a small animated stick figure")
 async def stickfigure(interaction: discord.Interaction) -> None:
     await interaction.response.send_message(STICK_FIGURE_FRAMES[0])
     for frame in STICK_FIGURE_FRAMES[1:]:
