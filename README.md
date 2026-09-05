@@ -1,4 +1,4 @@
-# Billy's Sound Bot
+# BillyBot
 
 A personal Discord music bot with slash commands, per-server queues, Spotify track search, and queued audio playback.
 
@@ -89,7 +89,7 @@ The easiest GitHub-connected option is a Railway service. Render's background wo
 2. Confirm `.env` is not shown by `git status`; it is ignored by `.gitignore` and must never be pushed.
 3. Create an account at [Railway](https://railway.com/) and choose **New Project -> Deploy from GitHub Repo**.
 4. Authorize GitHub, select the BillysSoundBot repository, and select the branch to deploy, usually `main`.
-5. Railway will detect the `Dockerfile`. If it asks for a start command, use `billy-sound-bot`.
+5. Railway will detect the `Dockerfile`. If it asks for a start command, use `billybot`.
 6. Open the service's **Variables** section and add `DISCORD_TOKEN`, `SPOTIFY_CLIENT_ID`, and `SPOTIFY_CLIENT_SECRET`. Add `DISCORD_GUILD_ID` while testing and `MAX_QUEUE_SIZE` if you want a non-default limit.
 7. Deploy the service and open its logs. Successful startup will include a command-sync message.
 8. Enable automatic deploys from the selected GitHub branch. Each push to that branch will build and redeploy the bot.
