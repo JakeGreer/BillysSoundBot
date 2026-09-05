@@ -6,6 +6,7 @@ import json
 import logging
 import os
 import re
+import urllib.error
 import urllib.parse
 import urllib.request
 from collections import deque
@@ -76,9 +77,17 @@ class SpotifyClient:
         else:
             params = urllib.parse.urlencode({"q": query, "type": "track", "limit": 1})
             endpoint = f"https://api.spotify.com/v1/search?{params}"
-        request = urllib.request.Request(endpoint, headers={"Authorization": f"Bearer {self._token()}"})
-        with urllib.request.urlopen(request, timeout=10) as response:
-            payload = json.loads(response.read())
+        for attempt in range(2):
+            request = urllib.request.Request(endpoint, headers={"Authorization": f"Bearer {self._token()}"})
+            try:
+                with urllib.request.urlopen(request, timeout=10) as response:
+                    payload = json.loads(response.read())
+                break
+            except urllib.error.HTTPError as error:
+                if error.code != 401 or attempt == 1:
+                    raise
+                LOGGER.warning("Spotify access token was rejected; requesting a new token")
+                self._access_token = None
         track = payload if track_match else (payload.get("tracks", {}).get("items") or [None])[0]
         if not track:
             return None
